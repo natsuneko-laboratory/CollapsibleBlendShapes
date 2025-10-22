@@ -1,0 +1,61 @@
+name: "Release by Tag"
+
+on:
+  push:
+    tags:
+      - "v**"
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.vars.outputs.version }}
+    steps:
+      - id: vars
+        run: |
+          VERSION=$(echo ${{ github.ref }} | sed -e 's/refs\/tags\///' | sed -e 's/refs\/heads\///')
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+  build-unitypackage:
+    runs-on: ubuntu-latest
+    needs: [setup]
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          lfs: true
+
+      - run: |
+          mkdir -p dist
+
+      - uses: natsuneko-laboratory/create-unitypackage@bbb27c1e955b84b7063c1db9ff3430d40bc3e110 # v3.2.0
+        with:
+          files-glob: |
+            Assets/NatsunekoLaboratory/CollapsibleBlendShapes/**/*.*
+          dest: dist/CollapsibleBlendShapes-${{ needs.setup.outputs.version }}.unitypackage
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          path: dist/*.unitypackage
+
+  build-vpmpackage:
+    runs-on: ubuntu-latest
+    needs: [setup]
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+        with:
+          lfs: true
+
+      - run: |
+          mkdir -p dist
+
+      - uses: natsuneko-laboratory/create-vpmpackage@b61e78c6dc36db3e7df4d05d061d71faa9cb324a # v1.3.1
+        with:
+          packages: |
+            Assets/NatsunekoLaboratory/CollapsibleBlendShapes/package.json
+          outputs: |
+            dist/CollapsibleBlendShapes-${{ needs.setup.outputs.version }}.zip
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          path: dist/*.zip

@@ -9,7 +9,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "0Harmony.dll",
+        "NatsunekoLaboratory.0Harmony.dll",
         "NatsunekoLaboratory.Refractions.dll"
     ],
     "autoReferenced": false,
