@@ -50,7 +50,7 @@ jobs:
       - run: |
           mkdir -p dist
 
-      - uses: natsuneko-laboratory/create-vpmpackage@b61e78c6dc36db3e7df4d05d061d71faa9cb324a # v1.3.1
+      - uses: natsuneko-laboratory/create-vpmpackage@248c689bd9c95dbe36e4cc121e7df68bf00bd964 # v1.4.0
         with:
           packages: |
             Assets/NatsunekoLaboratory/CollapsibleBlendShapes/package.json
