@@ -1,6 +1,6 @@
 {
   "name": "cat.natsuneko.collapsible-blendshapes",
-  "version": "0.2.4-preview.2",
+  "version": "0.2.4-preview.3",
   "displayName": "Collapsible Blend Shapes",
   "description": "A Unity editor extension that allows for collapsible blend shapes in the inspector.",
   "unity": "2022.3",
