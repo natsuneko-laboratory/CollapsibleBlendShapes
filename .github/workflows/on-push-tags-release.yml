@@ -61,3 +61,8 @@ jobs:
         with:
           path: dist/*.zip
           name: VPMPackages
+
+      - uses: natsuneko-laboratory/publish-vpmpackage@c13258e080d8195427c066650a51b25a02b8c364 # v0.2.1
+        with:
+          packages: |
+            dist/CollapsibleBlendShapes-${{ needs.setup.outputs.version }}.zip
